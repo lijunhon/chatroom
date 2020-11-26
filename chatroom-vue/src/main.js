@@ -7,9 +7,17 @@ import router from './router'
 /*
 element-ui 组件引入
  */
-import { Button, Select } from 'element-ui';
-Vue.component(Button.name, Button);
-Vue.component(Select.name, Select);
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
+/*
+axios 组件引入
+ */
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+Vue.prototype.axios = axios;
+Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false
 
