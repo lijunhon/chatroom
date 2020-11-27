@@ -12,5 +12,5 @@ import lombok.Data;
 public class ServerMessageDto {
     private boolean system;
     private String fromName;
-    private Object message;//用户消息和系统消息不一样
+    private Object message;//用户消息和系统消息类型不一样
 }

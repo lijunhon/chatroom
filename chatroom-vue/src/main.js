@@ -19,6 +19,26 @@ import VueAxios from 'vue-axios'
 Vue.prototype.axios = axios;
 Vue.use(VueAxios, axios);
 
+/*
+高的题图组件引入
+ */
+import VueAMap from 'vue-amap';
+Vue.use(VueAMap);
+VueAMap.initAMapApiLoader({
+  key: '19c2fa7af71bad3626482f572f7d4b30',
+  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  // 默认高德 sdk 版本为 1.4.4
+  v: '1.4.4'
+});
+
+/*
+图片预览组件引入
+ */
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
+
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
