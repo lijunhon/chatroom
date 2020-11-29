@@ -1,18 +1,19 @@
 package org.springboot.chatroom.dao;
 
-import lombok.Data;
+import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Select;
+import org.springboot.chatroom.po.UserPo;
 
-/**
- * 用户持久化实体类
- */
-@Data
-public class UserDao {
-    //用户名
-    private String username;
-    //昵称
-    private String nickname;
-    //密码
-    private String password;
-    //邮箱
-    private String email;
+public interface UserDao {
+
+    @Select("select * from users")
+    Page<UserPo> getAllUsers();
+
+    @Select("select * from users where id = #{id}")
+    UserPo getUserById(Long id);
+
+    @Select("select * from users where account_number = #{accountNumber}")
+    UserPo getUserByAccountNumber(String accountNumber);
+
+
 }

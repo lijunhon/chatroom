@@ -1,12 +1,12 @@
-package org.springboot.chatroom.dto;
+package org.springboot.chatroom.po;
 
 import lombok.Data;
 
 /**
- * 用户名密码传输实体
+ * 用户名密码数据库实体
  */
 @Data
-public class UserLoginDto {
+public class UserLoginPo {
     private String accountNumber;
     private String password;
 }
