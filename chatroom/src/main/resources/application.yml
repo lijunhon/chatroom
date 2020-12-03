@@ -5,9 +5,9 @@ spring:
     #1.JDBC
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://123.207.23.217:3306/chatroom?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: chatroom
-    password: chatroom
+    url: jdbc:mysql://localhost:3306/chatroom?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 111111
     druid:
       #2.连接池配置
       #初始化连接池的连接数量 大小，最小，最大
@@ -58,3 +58,39 @@ logging:
       springboot:
         chatroom:
           dao: debug
+
+rsa:
+  key:
+    private: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC++4IDxh/4Owlq
+      gH1eNbtHtUBTCYyfi3DJJj9D/QaKVb7RyM6AU9BhFHWUU0L8ZMmMSsJw0QIOzbY2
+      Hwl758u6YAh+c354/WfxjAXou8iNrnDLwn7xrAFqOkLTPuFYMn/eitjLuZVO3mSi
+      iqAJ5LlNwIIPLOJK67dD5ECfClici0tdtgNEt8tIb9N4dS3HbUVnu3ImESsgDqXp
+      +kwMJpH/3IJZDLlE4xVEY2BMyn8fwbX3NbvWhU1+5NAEF9QKzx8+8fdme9Su2YF+
+      qvdhrmhpMVUmcDQqi33XBgb/w1gR0u+kIOaFr2sdubhdQz3v8epj0dRetwS7bth5
+      /ZLnF9w9AgMBAAECggEBAL6WDMwpVlQIzj+7E+EFK+zGgveayvuYUqhZg78cbP91
+      zCRcCT9k5MlMen3XjTyEc+GN5XZiDXSqcxCVboh47AUEutU9+lNRRv50ppz3cI97
+      KlMcuEQCS7Mviup2kLjMRHDYDLtZaxe2taTDRCw7VXSzDNeKChWMH2ogCSDtWTp1
+      yh4Qp5wymcbaFHMmINt9elh2rBsD8JD5W6d/sL30l08f02VVhTc0GoUyZkIJ1Hyq
+      L8KdurWvpZLWiy85IFYQ+HVddJKlNNInXey56kqFtK5pq4ckSlivLPEW/4jMvpCG
+      mNdRNSa3+PFJMStWjgr07PbNErr6jhTUrl9dHPU9u6ECgYEA3vEZFFh48KQTf9YZ
+      fqDezDQYy7qNykbRNHC/QPwm9TnURlu6FnNyTv1lfHRMqNyShFyhYbIXzGAuS8jf
+      81ettR9jQ5zIvTNgXS5ulKc1YCxTn5Gs9YC44WKCxWA/o1WnpZVRtG28uXtXVOlB
+      k8iU1mWk88KeP6X54iv5AgpCfJUCgYEA2006nGXfyIhbtADy/O700VYr2DMTkk5o
+      TnLnXLFmZLXAg6XzpSz1t6j7pTUFi00ox8v66ebSqTRd0W8p9c0QyNQqB8Lht5qN
+      V+NXHs83+boYZZbEe9QaYq3Hg/63ocDjneUbJ66H+rKn1Z6uceMuJ1Ok6WCrJTbD
+      w6hDq9GxzwkCgYEAis1rAurOaWyOI2JGPzujW1n4Mid1DgInUFH+EVSsYLNfgWqs
+      ojvAaIOFgwXZkKy7oCMX6v55qKodSNvI6vWk1gazw63CoWFyVrGI8Y5lQfp3GfsV
+      x0gcU18E8iQpmuTCWuprkz1badPsHJaZWIxidlWUbJu38QLCYFlmUCnZGT0CgYAN
+      Y2SdobaMxo5aqegruublVM5ub4fVWcYSa/9l8EqhAVuUbfA2+Eyz/rQGPPtuqrI/
+      qFtUJkxcGh9UJuY35GIO8Kz0NliTXfMdF3r9HYd8Tnko0pCCQsutlJBmpYlObbk3
+      rYH/5S7WBkwqxXo+57Cso/Wgbc9lATfoXQBsn+usCQKBgGqmVUBYBjzbmdgHyTwH
+      +By1OlHs4EWPSuyccWA4HCGHM+ZLr5gK87Ne01Jjeqm2XrGuor+2eYaXCGNc2So4
+      /DenLLCJy3JNsjr+0ze6xrOXthscVnhM9xwIhKnwJVRj9kgkXFF69b/x0j8QG4l7
+      ruOCqcxN/Gk9V+ITtYyDFsTr
+    public: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvvuCA8Yf+DsJaoB9XjW7
+      R7VAUwmMn4twySY/Q/0GilW+0cjOgFPQYRR1lFNC/GTJjErCcNECDs22Nh8Je+fL
+      umAIfnN+eP1n8YwF6LvIja5wy8J+8awBajpC0z7hWDJ/3orYy7mVTt5kooqgCeS5
+      TcCCDyziSuu3Q+RAnwpYnItLXbYDRLfLSG/TeHUtx21FZ7tyJhErIA6l6fpMDCaR
+      /9yCWQy5ROMVRGNgTMp/H8G19zW71oVNfuTQBBfUCs8fPvH3ZnvUrtmBfqr3Ya5o
+      aTFVJnA0Kot91wYG/8NYEdLvpCDmha9rHbm4XUM97/HqY9HUXrcEu27Yef2S5xfc
+      PQIDAQAB

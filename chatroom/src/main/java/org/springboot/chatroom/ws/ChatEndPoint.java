@@ -2,7 +2,7 @@ package org.springboot.chatroom.ws;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.springboot.chatroom.utils.MessageUtils;
+import org.springboot.chatroom.utils.MessageUtil;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
@@ -47,9 +47,9 @@ public class ChatEndPoint {
         onlineUsers.put((String) httpSession.getAttribute("username"),this);
 
         //系统推送上线消息
-        String message = MessageUtils.getServerMessage(true,null, getOnlineNames());
+        String message = MessageUtil.getServerMessage(true,null, getOnlineNames());
         try {
-            MessageUtils.broadcastAllUsers(message);
+            MessageUtil.broadcastAllUsers(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,10 +60,10 @@ public class ChatEndPoint {
     public void onMessage(String message,Session session){
         JSONObject mess = JSON.parseObject(message);
         String fromName = (String) httpSession.getAttribute("username");
-        String sendMessage = MessageUtils.getServerMessage(false, fromName, mess.get("message"));
+        String sendMessage = MessageUtil.getServerMessage(false, fromName, mess.get("message"));
         try {
             //推送用户消息
-            MessageUtils.broadcastMessage(sendMessage, (String) mess.get("toName"));
+            MessageUtil.broadcastMessage(sendMessage, (String) mess.get("toName"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,9 +76,9 @@ public class ChatEndPoint {
         //将用户从onlineusers除去
         onlineUsers.remove(fromName);
         //广播用户下线
-        String message = MessageUtils.getServerMessage(true,null, getOnlineNames());
+        String message = MessageUtil.getServerMessage(true,null, getOnlineNames());
         try {
-            MessageUtils.broadcastAllUsers(message);
+            MessageUtil.broadcastAllUsers(message);
         } catch (IOException e) {
             e.printStackTrace();
         }

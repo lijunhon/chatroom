@@ -3,13 +3,15 @@ package org.springboot.chatroom.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springboot.chatroom.dao.UserDao;
-import org.springboot.chatroom.po.UserLoginPo;
+import org.springboot.chatroom.dto.UserLoginDto;
 import org.springboot.chatroom.po.UserPo;
 import org.springboot.chatroom.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,15 +41,44 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginPo getLoginUserByAccountNumber(String accountNumber) {
+    public UserPo getUserByAccountNumber(String accountNumber) {
+        return userDao.getUserByAccountNumber(accountNumber);
+    }
+
+    @Override
+    public UserLoginDto getLoginUserByAccountNumber(String accountNumber) {
         UserPo userPo = userDao.getUserByAccountNumber(accountNumber);
         if(userPo != null){
-            UserLoginPo userLoginPo = new UserLoginPo();
+            UserLoginDto userLoginPo = new UserLoginDto();
             //复制属性
             BeanUtils.copyProperties(userPo, userLoginPo);
             return userLoginPo;
         }
         return null;
+    }
+
+    @Override
+    public void registerUser(UserPo userPo) throws IOException {
+        //设置在线状态 0在线 1忙碌 2勿扰 3离线
+        userPo.setRole("user");
+        userPo.setCreateTime(new Date());
+        userPo.setOnlineStatus(3);
+        userDao.saveUser(userPo);
+    }
+
+    @Override
+    public void updateUser(UserPo userPo) throws IOException {
+        userDao.updateUserById(userPo);
+    }
+
+    @Override
+    public void deleteUserById(Long id) throws IOException {
+        userDao.deleteUserById(id);
+    }
+
+    @Override
+    public void deleteUserByAccountNumber(String accountNumber) throws IOException {
+        userDao.deleteUserByAccountNumber(accountNumber);
     }
 
 

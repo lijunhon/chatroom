@@ -7,9 +7,15 @@ import lombok.Data;
  * 200 登录/注册/修改成功
  * 300 用户名或密码不正确
  * 301 用户不存在
+ * 302 注册账户已存在
  */
 @Data
 public class ReturnMessageDto {
-    private Integer code;
+    private String  status;
     private String message;
+
+    public ReturnMessageDto(String status, String message){
+        this.setStatus(status);
+        this.setMessage(message);
+    }
 }

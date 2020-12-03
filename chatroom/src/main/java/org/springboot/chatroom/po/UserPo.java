@@ -2,13 +2,14 @@ package org.springboot.chatroom.po;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户持久化实体类
  */
 @Data
-public class UserPo {
+public class UserPo implements Serializable {
     //用户id
     private long id;
     //用户名
@@ -29,20 +30,8 @@ public class UserPo {
     private Integer onlineStatus;
     //上次登录时间
     private Date lastLoginTime;
-
-    @Override
-    public String toString() {
-        return "UserPo{" +
-                "id=" + id +
-                ", accountNumber='" + accountNumber + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", password='" + password + '\'' +
-                ", recentPassword='" + recentPassword + '\'' +
-                ", email='" + email + '\'' +
-                ", signature='" + signature + '\'' +
-                ", city='" + city + '\'' +
-                ", onlineStatus=" + onlineStatus +
-                ", lastLoginTime=" + lastLoginTime +
-                '}';
-    }
+    //创建时间
+    private Date createTime;
+    //角色
+    private String role;
 }

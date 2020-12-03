@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * 用于封装消息
  */
-public class MessageUtils {
+public class MessageUtil {
     /**
      * @param system
      * @param fromName
