@@ -8,10 +8,12 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.List;
 
+@RestControllerAdvice
 public class ErrorRestControllerAdvice {
     /** 全局异常捕捉处理 返回 401 状态 */
     @ExceptionHandler(value = Exception.class)

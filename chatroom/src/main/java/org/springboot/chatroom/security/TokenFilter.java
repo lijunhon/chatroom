@@ -32,11 +32,7 @@ public class TokenFilter extends OncePerRequestFilter {
         // 存储 Token 的 Headers Key与 Value，默认是 Authorization
         final String authorizationKey = "Authorization";
         String authorizationValue;
-        try {
-            authorizationValue = request.getHeader(authorizationKey);
-        } catch (Exception e) {
-            authorizationValue = null;
-        }
+        authorizationValue = request.getHeader(authorizationKey);
         // Token 开头部分 默认 Bearer 开头
         String bearer = "Bearer ";
         if (authorizationValue != null && authorizationValue.startsWith(bearer)) {

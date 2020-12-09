@@ -8,7 +8,6 @@ import org.springboot.chatroom.security.TokenUtil;
 import org.springboot.chatroom.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.sql.SQLException;
+
 import java.util.Date;
 
 /**
@@ -55,7 +54,11 @@ public class UserController {
         // 生成Token与查询用户权限
         UserPo userPo = userService.getUserByAccountNumber(userLoginDto.getAccountNumber());
         userPo.setLastLoginTime(new Date());
-        //UserLoginDto userDtoData = userService.getLoginUserByAccountNumber(userLoginDto.getAccountNumber());
+        try {
+            userService.updateUser(userPo);
+        } catch (IOException e) {
+            return new ReturnMessageDto("ERROR", "更新登录时间错误");
+        }
         String token = null;
         try{
             token = tokenUtil.createToken(userPo);
@@ -90,6 +93,20 @@ public class UserController {
             return new ReturnMessageDto("ERROR", "已经存在该用户名或者邮箱，或者用户权限出错");
         }
         return new ReturnMessageDto("SUCCESS", "用户新增成功");
+    }
+
+    @PostMapping(value = "/deleteuser")
+    public ReturnMessageDto deleteUserById(@PathVariable Long id){
+        //判断删除的是否是当前用户
+        if("admin".equals(userService.getUserById(id).getRole())){
+            try {
+                userService.deleteUserById(id);
+            } catch (IOException e) {
+                return new ReturnMessageDto("ERROR","删除用户失败，数据库原因");
+            }
+            return new ReturnMessageDto("SUCCESS", "删除成功");
+        }
+        return new ReturnMessageDto("ERROR","无权限删除用户");
     }
 
     /** 这是登录用户才可以看到的内容 */

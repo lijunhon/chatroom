@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLoginDto getLoginUserByAccountNumber(String accountNumber) {
         UserPo userPo = userDao.getUserByAccountNumber(accountNumber);
+        //更新上次登录时间
         if(userPo != null){
             UserLoginDto userLoginPo = new UserLoginDto();
             //复制属性

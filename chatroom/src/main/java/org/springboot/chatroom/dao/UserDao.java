@@ -23,6 +23,7 @@ public interface UserDao {
     boolean saveUser(UserPo userPo);
 
     @Update("update users set " +
+            "account_number = #{accountNumber}, " +
             "nickname = #{nickname}, " +
             "password = #{password}, " +
             "recent_password = #{recentPassword}, " +
@@ -30,9 +31,9 @@ public interface UserDao {
             "signature = #{signature}, " +
             "city = #{city}, " +
             "online_status = #{onlineStatus}, " +
-            "last_login_time = #{lastLoginTime}" +
-            "create_time = #{createTime}" +
-            "role = #{role}" +
+            "last_login_time = #{lastLoginTime}, " +
+            "create_time = #{createTime}, " +
+            "role = #{role} " +
             "where id = #{id}")
     void updateUserById(UserPo userPo);
 
@@ -44,9 +45,9 @@ public interface UserDao {
             "signature = #{signature}, " +
             "city = #{city}, " +
             "online_status = #{onlineStatus}, " +
-            "last_login_time = #{lastLoginTime}" +
-            "create_time = #{createTime}" +
-            "role = #{role}" +
+            "last_login_time = #{lastLoginTime}, " +
+            "create_time = #{createTime}, " +
+            "role = #{role} " +
             "where account_number = #{accountNumber}")
     void updateUserByAccountNumber(UserPo userPo);
 
