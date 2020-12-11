@@ -25,7 +25,7 @@ public class ErrorAuthenticationEntryPoint implements AuthenticationEntryPoint, 
         // PrintWriter 输出 Response 返回信息
         PrintWriter writer = response.getWriter();
         ObjectMapper mapper = new ObjectMapper();
-        ReturnMessageDto returnMessageDto = new ReturnMessageDto("error", "非授权访问");
+        ReturnMessageDto returnMessageDto = new ReturnMessageDto(309,"error", "非授权访问");
         // 将对象输出为 JSON 格式。可以通过重写 MyResponse 的 toString() ，直接通过 myResponse.toString() 即可
         writer.write(mapper.writeValueAsString(returnMessageDto));
     }

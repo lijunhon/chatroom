@@ -17,9 +17,9 @@ public class MailController {
     public ReturnMessageDto sendMail(@RequestBody final MailVo mailVo){
 
         if(mailService.sendMail(mailVo)){
-            return new ReturnMessageDto("SUCCESS","发送邮件成功");
+            return new ReturnMessageDto(200,"SUCCESS","发送邮件成功");
         }else {
-            return new ReturnMessageDto("ERROR","发送邮件失败");
+            return new ReturnMessageDto(310,"ERROR","发送邮件失败");
         }
     }
 }

@@ -16,8 +16,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
@@ -56,17 +61,29 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         // 配置 CSRF 关闭,允许跨域访问
         httpSecurity.csrf().disable();
+        httpSecurity.cors();//跨域
         // 指定错误未授权访问的处理类
         httpSecurity.exceptionHandling().authenticationEntryPoint(errorAuthenticationEntryPoint);
         // 关闭 Session
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 允许 登录 注册的 api 的无授权访问，其他需要授权访问
         httpSecurity.authorizeRequests()
+                //.requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers("/api/user/login", "/api/user/register")
                 .permitAll().anyRequest().authenticated();
         // 添加拦截器
         httpSecurity.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 禁用缓存
         httpSecurity.headers().cacheControl();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

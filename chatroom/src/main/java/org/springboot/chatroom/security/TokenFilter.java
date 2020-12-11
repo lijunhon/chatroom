@@ -29,6 +29,7 @@ public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         // 存储 Token 的 Headers Key与 Value，默认是 Authorization
         final String authorizationKey = "Authorization";
         String authorizationValue;

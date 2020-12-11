@@ -43,13 +43,14 @@ public class UserController {
      */
     @PostMapping(value = "/login")
     public ReturnMessageDto login(@RequestBody final UserLoginDto userLoginDto) {
+        System.out.println("a");
         try {
             // 验证用户名和密码是否对的
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userLoginDto.getAccountNumber(),
                             userLoginDto.getPassword()));
         } catch (BadCredentialsException e) {
-            return new ReturnMessageDto("ERROR", "用户名或者密码不正确");
+            return new ReturnMessageDto(300,"ERROR", "用户名或者密码不正确");
         }
         // 生成Token与查询用户权限
         UserPo userPo = userService.getUserByAccountNumber(userLoginDto.getAccountNumber());
@@ -57,15 +58,15 @@ public class UserController {
         try {
             userService.updateUser(userPo);
         } catch (IOException e) {
-            return new ReturnMessageDto("ERROR", "更新登录时间错误");
+            return new ReturnMessageDto(303,"ERROR", "更新登录时间错误");
         }
         String token = null;
         try{
             token = tokenUtil.createToken(userPo);
         }catch (Exception e){
-            return new ReturnMessageDto("ERROR", "生成token错误");
+            return new ReturnMessageDto(304, "ERROR", "生成token错误");
         }
-        return new ReturnMessageDto("SUCCESS",
+        return new ReturnMessageDto(200,"SUCCESS",
                 token);
     }
 
@@ -84,15 +85,15 @@ public class UserController {
             BeanUtils.copyProperties(userRegisterDto, userPo);
             userService.registerUser(userPo);
         }catch (IOException e){
-            return new ReturnMessageDto("ERROR", "数据库异常");
+            return new ReturnMessageDto(305,"ERROR", "数据库异常");
         }
         catch (DuplicateKeyException e){
-            return new ReturnMessageDto("ERROR", "已存在用户名或邮箱");
+            return new ReturnMessageDto(302,"ERROR", "已存在用户名或邮箱");
         }
         catch (Exception e) {
-            return new ReturnMessageDto("ERROR", "已经存在该用户名或者邮箱，或者用户权限出错");
+            return new ReturnMessageDto(306,"ERROR", "注册错误或者用户权限出错");
         }
-        return new ReturnMessageDto("SUCCESS", "用户新增成功");
+        return new ReturnMessageDto(200,"SUCCESS", "用户新增成功");
     }
 
     @PostMapping(value = "/deleteuser")
@@ -102,11 +103,11 @@ public class UserController {
             try {
                 userService.deleteUserById(id);
             } catch (IOException e) {
-                return new ReturnMessageDto("ERROR","删除用户失败，数据库原因");
+                return new ReturnMessageDto(307,"ERROR","删除用户失败，数据库原因");
             }
-            return new ReturnMessageDto("SUCCESS", "删除成功");
+            return new ReturnMessageDto(200,"SUCCESS", "删除成功");
         }
-        return new ReturnMessageDto("ERROR","无权限删除用户");
+        return new ReturnMessageDto(308,"ERROR","无权限删除用户");
     }
 
     /** 这是登录用户才可以看到的内容 */

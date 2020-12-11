@@ -1,13 +1,13 @@
 <template>
   <div class="login-wrap">
-    <div class="ms-title">登录管理系统</div>
+    <div class="ms-title">奥特曼聊天系统</div>
     <div class="ms-login">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
         <div v-if="errorInfo">
           <span>{{errInfo}}</span>
         </div>
-        <el-form-item prop="name">
-          <el-input v-model="ruleForm.name" placeholder="账号" ></el-input>
+        <el-form-item prop="accountNumber">
+          <el-input v-model="ruleForm.accountNumber" placeholder="账号" ></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="密码" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+const axios = require('axios');
 export default {
   name: 'Login',
   data() {
@@ -36,7 +37,7 @@ export default {
       identifyCode: "",
       errorInfo : false,
       ruleForm: {
-        name: '',
+        accountNumber: '',
         password: '',
         validate: ''
       },
@@ -62,25 +63,27 @@ export default {
       const self = this;
       self.$refs[formName].validate((valid) => {
         if (valid) {
-          localStorage.setItem('ms_username',self.ruleForm.name);
+          localStorage.setItem('ms_username',self.ruleForm.accountNumber);
           localStorage.setItem('ms_user',JSON.stringify(self.ruleForm));
           console.log(JSON.stringify(self.ruleForm));
-          self.$http.post('/api/user/login',JSON.stringify(self.ruleForm))
-            .then((response) => {
-              console.log(response);
-              if (response.data == -1) {
-                self.errorInfo = true;
-                self.errInfo = '该用户不存在';
-                console.log('该用户不存在')
-              } else if (response.data == 0) {
-                console.log('密码错误')
-                self.errorInfo = true;
-                self.errInfo = '密码错误';
-              } else if (response.status == 200) {
-                self.$router.push('/readme');
-              }
-            }).then((error) => {
-            console.log(error);
+          //axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
+          axios({
+            method:"post",
+            url:"http://localhost:9090/api/user/login",
+            data:{
+              accountNumber: this.ruleForm.accountNumber,
+              password: this.ruleForm.password
+            },
+          }).then((res)=>{
+            if (res.code == 301) {
+              self.errorInfo = true;
+              self.errInfo = '该用户不存在';
+            } else if (res.code == 300) {
+              self.errorInfo = true;
+              self.errInfo = '用户名或密码错误';
+            } else if (res.code == 200) {
+              self.$router.push('/home');
+            }
           })
         } else {
           console.log('error submit!!');
@@ -113,7 +116,7 @@ export default {
 <style scoped>
 .login-wrap{
   position: absolute;
-  background: url("../assets/images/login.jpg") no-repeat;
+  background-image: url("../assets/images/login.jpg");
   width:100%;
   height:100%;
 }
@@ -125,7 +128,6 @@ export default {
   text-align: center;
   font-size:30px;
   color: #fff;
-
 }
 .ms-login{
   position: absolute;

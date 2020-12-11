@@ -11,6 +11,13 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 
+/**
+ * 验证码
+ */
+import SIdentify from './components/identify'
+Vue.component('s-identify', SIdentify)
+
+
 /*
 axios 组件引入
  */
@@ -20,7 +27,7 @@ Vue.prototype.axios = axios;
 Vue.use(VueAxios, axios);
 
 /*
-高的题图组件引入
+高德地图组件引入
  */
 import VueAMap from 'vue-amap';
 Vue.use(VueAMap);
